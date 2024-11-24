@@ -3,15 +3,14 @@ import supabase from '@/lib/supabase'
 
 export async function POST (req: Request) {
   try {
-    const { emailOrUsername, password } = await req.json()
+    const { email, password } = await req.json()
 
-    if (!emailOrUsername || !password) {
+    if (!email || !password) {
       return NextResponse.json(
-        { error: 'Email/Username and password are required' },
+        { error: 'Email and password are required' },
         { status: 400 }
       )
     }
-    const email = emailOrUsername
 
     const { data: authData, error: authError } =
       await supabase.auth.signInWithPassword({
@@ -21,7 +20,7 @@ export async function POST (req: Request) {
 
     if (authError) {
       return NextResponse.json(
-        { error: 'Invalid email/username or password' },
+        { error: 'Invalid email or password' },
         { status: 401 }
       )
     }

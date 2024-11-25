@@ -1,6 +1,17 @@
 'use client'
 import { signIn } from '@/services/authService'
+import { redirect } from 'next/navigation'
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
+
+const login = async (event: FormData) => {
+  const response = await signIn(event)
+  if (!response.success){
+    toast(response.message)
+    return
+  }
+  redirect('/')
+}
 
 const SignIn = () => {
   return (
@@ -22,7 +33,7 @@ const SignIn = () => {
             required
             className='text-black text-sm p-1'
           />
-          <button formAction={signIn} className='border rounded-sm p-1'>
+          <button formAction={login} className='border rounded-sm p-1'>
             Sign in
           </button>
         </form>

@@ -1,6 +1,14 @@
 'use client'
 import { signUp } from '@/services/authService'
-import React, { useState } from 'react'
+import { redirect } from 'next/navigation'
+import React from 'react'
+import { toast } from 'react-toastify'
+
+const newUser = async (event: FormData) => {
+  const response = await signUp(event)
+  toast(response.message)
+  if (response.success) redirect('/signin')
+}
 
 const SignUp = () => {
   return (
@@ -8,7 +16,7 @@ const SignUp = () => {
       <div className='border rounded-md p-5 flex flex-col justify-end items-center space-y-2'>
         <h1>Sign Up</h1>
         <form className='flex flex-col w-56 space-y-2'>
-        <input
+          <input
             type='text'
             placeholder='Username'
             name='username'
@@ -29,8 +37,8 @@ const SignUp = () => {
             required
             className='text-black text-sm p-1'
           />
-          <button formAction={signUp} className='border rounded-sm p-1'>
-            Sign in
+          <button formAction={newUser} className='border rounded-sm p-1'>
+            Sign up
           </button>
         </form>
       </div>

@@ -1,7 +1,6 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
 
 export async function signIn (formData: FormData) {
@@ -14,11 +13,17 @@ export async function signIn (formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword(data)
   if (error) {
     console.log(error)
-    return
+    return {
+      success: false,
+      message: error.message
+    }
   }
 
   revalidatePath('/', 'layout')
-  redirect('/')
+  return {
+    success: true,
+    message: 'Successfully signed in.'
+  }
 }
 
 export async function signUp (formData: FormData) {
@@ -31,7 +36,10 @@ export async function signUp (formData: FormData) {
   const { data, error } = await supabase.auth.signUp(payload)
   if (error) {
     console.log(error)
-    return
+    return {
+      success: false,
+      message: error.message
+    }
   }
   if (data.user) {
     const { error: insertError } = await supabase.from('users').insert([
@@ -44,10 +52,16 @@ export async function signUp (formData: FormData) {
 
     if (insertError) {
       console.log(insertError)
-      return
+      return {
+        success: false,
+        message: 'Failed to create user in database.',
+      }
     }
   }
 
   revalidatePath('/', 'layout')
-  redirect('/')
+  return {
+    success: true,
+    message: 'Account created successfully!'
+  }
 }

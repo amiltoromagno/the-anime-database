@@ -1,67 +1,48 @@
-'use server'
+import { apiAccess } from '@/services/apiService'
 
-import { revalidatePath } from 'next/cache'
-import { createClient } from '@/utils/supabase/server'
-
-export async function signIn (formData: FormData) {
-  const supabase = await createClient()
+export async function signIn (formData: FormData): Promise<any> {
   const data = {
     email: formData.get('email') as string,
     password: formData.get('password') as string
   }
 
-  const { error } = await supabase.auth.signInWithPassword(data)
-  if (error) {
-    console.log(error)
-    return {
-      success: false,
-      message: error.message
-    }
-  }
-
-  revalidatePath('/', 'layout')
-  return {
-    success: true,
-    message: 'Successfully signed in.'
-  }
-}
-
-export async function signUp (formData: FormData) {
-  const supabase = await createClient()
-  const payload = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string
-  }
-
-  const { data, error } = await supabase.auth.signUp(payload)
-  if (error) {
-    console.log(error)
-    return {
-      success: false,
-      message: error.message
-    }
-  }
-  if (data.user) {
-    const { error: insertError } = await supabase.from('users').insert([
-      {
-        id: data.user.id,
-        email: data.user.email,
-        username: formData.get('username') as string
+  return apiAccess
+    .post('/api/auth/signin', data)
+    .then((response: any) => {
+      return {
+        success: true,
+        message: 'Successfully signed in.',
+        data: response
       }
-    ])
-
-    if (insertError) {
-      console.log(insertError)
+    })
+    .catch((err: any) => {
       return {
         success: false,
-        message: 'Failed to create user in database.',
+        message: err.message || 'An unexpected error occurred.'
       }
-    }
+    })
+}
+
+export async function signUp (formData: FormData): Promise<any> {
+  const data = {
+    email: formData.get('email') as string,
+    password: formData.get('password') as string,
+    username: formData.get('username') as string
   }
 
-  revalidatePath('/', 'layout')
-  return {
-    success: true,
-    message: 'Account created successfully!'
-  }
+  return apiAccess
+    .post('/api/auth/signup', data)
+    .then((response: any) => {
+      return {
+        success: true,
+        message: 'Account created successfully!',
+        data: response
+      }
+    })
+    .catch((err: any) => {
+      return {
+        success: false,
+        message: err.message || 'An unexpected error occurred.'
+      }
+    })
 }

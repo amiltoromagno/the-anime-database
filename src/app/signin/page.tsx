@@ -1,7 +1,7 @@
 'use client'
 import { signIn } from '@/services/authService'
 import { redirect } from 'next/navigation'
-import React, { useState } from 'react'
+import React from 'react'
 import { toast } from 'react-toastify'
 
 const login = async (event: FormData) => {
@@ -24,14 +24,14 @@ const SignIn = () => {
             placeholder='Email'
             name='email'
             required
-            className='text-black text-sm p-1'
+            className='text-sm p-1'
           />
           <input
             type='password'
             placeholder='Password'
             name='password'
             required
-            className='text-black text-sm p-1'
+            className='text-sm p-1'
           />
           <button formAction={login} className='border rounded-sm p-1'>
             Sign in

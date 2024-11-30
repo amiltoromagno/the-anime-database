@@ -21,21 +21,21 @@ const SignUp = () => {
             placeholder='Username'
             name='username'
             required
-            className='text-black text-sm p-1'
+            className='text-sm p-1'
           />
           <input
             type='text'
             placeholder='Email'
             name='email'
             required
-            className='text-black text-sm p-1'
+            className='text-sm p-1'
           />
           <input
             type='password'
             placeholder='Password'
             name='password'
             required
-            className='text-black text-sm p-1'
+            className='text-sm p-1'
           />
           <button formAction={newUser} className='border rounded-sm p-1'>
             Sign up

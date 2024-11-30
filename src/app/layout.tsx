@@ -4,6 +4,7 @@ import './globals.css'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Providers } from './providers'
+import Header from '@/components/Header'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -29,10 +30,11 @@ export default function RootLayout ({
   return (
     <html lang='en' suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen w-screen container mx-auto`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen w-screen container mx-auto flex flex-col`}
       >
         <Providers>
-          <main className='w-full h-full'>{children}</main>
+          <Header/>
+          <main className='w-full flex-grow'>{children}</main>
           <ToastContainer theme='dark' />
         </Providers>
       </body>

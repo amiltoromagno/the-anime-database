@@ -6,19 +6,12 @@ export default {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: ['class', "class"],
   theme: {
-  	extend: {
-  		colors: {
-  			background: 'var(--background)',
-  			foreground: 'var(--foreground)'
-  		},
-  		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		}
-  	}
+    colors: {
+      'primary-black': '#0a0a0a',
+      'primary-white': '#ededed'
+    }
   },
-  plugins: [require("tailwindcss-animate")],
+  darkMode: 'class',
+  plugins: [],
 } satisfies Config;

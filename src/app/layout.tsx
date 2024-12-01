@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
-import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Providers } from './providers'
 import Header from '@/components/Header'
@@ -30,12 +29,11 @@ export default function RootLayout ({
   return (
     <html lang='en' suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen w-screen container mx-auto flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen w-screen p-2 container mx-auto flex flex-col bg-primary-white dark:bg-primary-black text-primary-black dark:text-primary-white`}
       >
         <Providers>
           <Header/>
           <main className='w-full flex-grow'>{children}</main>
-          <ToastContainer theme='dark' />
         </Providers>
       </body>
     </html>

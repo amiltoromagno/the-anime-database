@@ -1,10 +1,14 @@
 import React from 'react'
 import DrawerComponent from './Drawer'
+import ThemeToggle from './ThemeToggle'
 
 const Header = () => {
   return (
-    <div className='border h-14 flex'>
-      <DrawerComponent />
+    <div className='h-10 flex justify-between items-center'>
+      <div>Logo</div>
+      <div className='md:hidden'>
+        <DrawerComponent/>
+      </div>
     </div>
   )
 }

@@ -1,6 +1,5 @@
 import React from 'react'
 import DrawerComponent from './Drawer'
-import ThemeToggle from './ThemeToggle'
 
 const Header = () => {
   return (

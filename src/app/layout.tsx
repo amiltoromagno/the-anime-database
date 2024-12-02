@@ -4,6 +4,7 @@ import './globals.css'
 import 'react-toastify/dist/ReactToastify.css'
 import { Providers } from './providers'
 import Header from '@/components/Header'
+import { UserContext } from '@/utils/userContext'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -32,8 +33,10 @@ export default function RootLayout ({
         className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen w-screen p-2 container mx-auto flex flex-col bg-primary-white dark:bg-primary-black text-primary-black dark:text-primary-white`}
       >
         <Providers>
-          <Header/>
-          <main className='w-full flex-grow'>{children}</main>
+          <UserContext>
+            <Header />
+            <main className='w-full flex-grow'>{children}</main>
+          </UserContext>
         </Providers>
       </body>
     </html>

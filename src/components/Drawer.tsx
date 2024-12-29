@@ -67,7 +67,6 @@ const Drawer = () => {
       >
         <div className='h-14 flex w-full justify-between items-center'>
           <ThemeToggle />
-          {user ? ('Yes') : ('No')}
           <IoMdClose className='text-4xl cursor-pointer' onClick={toggleDrawer}/>
         </div>
         <div className='h-12'>
